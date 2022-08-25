@@ -12,8 +12,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class StudentServiceTest {
-	
-	private ClassPathXmlApplicationContext context;
+
+	private ApplicationContext context;
 	private StudentService service;
 
 	@BeforeEach
@@ -22,19 +22,20 @@ public class StudentServiceTest {
 		this.service = this.context.getBean("studentService", StudentServiceImpl.class);
 		assertNotNull(this.service);
 
-
 	}
-	
- 
+
 	@Test
 	void testGetOneStudent() {
-		assertNotNull(this.service.get(1));
-		  //TODO
+		assertNotNull(((StudentServiceImpl) this.service).getStudentDao());
+		// assertNotNull(this.service.get(1));
+		// TODO
 	}
-	
+
 	@Test
 	void tesGetAll() {
-		 assertThat(this.service.getAllStudents().size(),equalTo(2));
-		 this.service.getAllStudents().forEach(s -> {System.out.printf("%-10s %-10s%n",s.getFirstName(),s.getSurname());});
+		assertThat(this.service.getAllStudents().size(), equalTo(2));
+		this.service.getAllStudents().forEach(s -> {
+			System.out.println(s);
+		});
 	}
 }
