@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context spring-context-4.0.xsd">
+
+	<!-- using setters -->
+	<!-- <bean id="studentService" class="com.baeldung.service.StudentServiceImpl">
+		<property name="numberOfStudents" value="2"></property>
+		<property name="studentDao" ref="studentDao"></property>
+	</bean>
+	<bean id="studentDao" class="com.baeldung.dao.StudentDaoImpl"></bean> -->
+
+	<!-- using constructor -->
+	<!-- <bean id="studentService" class="com.baeldung.service.StudentServiceImpl">
+		<constructor-arg value="2"></constructor-arg>
+		<constructor-arg ref="studentDao"></constructor-arg>
+	</bean>
+	<bean id="studentDao" class="com.baeldung.dao.StudentDaoImpl"></bean> -->
+
+	<!-- using static factory -->
+	<!-- <bean id="studentDao" class="com.baeldung.dao.StudentDaoFactory" factory-method="getDaoStatic"></bean>
+
+	<bean id="studentService" class="com.baeldung.service.StudentServiceImpl">
+		<constructor-arg value="2"></constructor-arg>
+		<constructor-arg ref="studentDao"></constructor-arg>
+	</bean> -->
+
+	<!-- using factory -->
+	<bean id="studentDaoFactory" class="com.baeldung.dao.StudentDaoFactory"></bean>
+
+	<bean id="studentDao" class="com.baeldung.dao.StudentDaoFactory" factory-method="getDao" factory-bean="studentDaoFactory"></bean>
+
+	<bean id="studentService" class="com.baeldung.service.StudentServiceImpl">
+		<constructor-arg value="2"></constructor-arg>
+		<constructor-arg ref="studentDao"></constructor-arg>
+	</bean>
+	
+</beans>
