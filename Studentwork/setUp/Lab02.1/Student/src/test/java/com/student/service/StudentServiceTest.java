@@ -19,23 +19,20 @@ public class StudentServiceTest {
 	@BeforeEach
 	void setUp() {
 		this.context = new ClassPathXmlApplicationContext("beans.xml");
-		this.service = this.context.getBean("studentService", StudentServiceImpl.class);
+		this.service = this.context.getBean("studentService", StudentService.class);
 		assertNotNull(this.service);
-
 	}
 
 	@Test
 	void testGetOneStudent() {
-		assertNotNull(((StudentServiceImpl) this.service).getStudentDao());
-		// assertNotNull(this.service.get(1));
-		// TODO
+		assertNotNull(this.service.get(1));
 	}
 
 	@Test
 	void tesGetAll() {
-		assertThat(this.service.getAllStudents().size(), equalTo(2));
 		this.service.getAllStudents().forEach(s -> {
 			System.out.println(s);
 		});
+		assertThat(this.service.getAllStudents().size(), equalTo(2));
 	}
 }

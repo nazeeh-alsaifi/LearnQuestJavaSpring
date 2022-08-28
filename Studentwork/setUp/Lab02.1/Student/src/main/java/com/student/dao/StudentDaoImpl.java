@@ -4,8 +4,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.student.core.Student;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
+import com.student.core.Student;
+@Named(value = "studentDao")
+@Singleton
 public class StudentDaoImpl implements StudentDao {
  
 	private Map<Long, Student> students;
