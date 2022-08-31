@@ -2,11 +2,16 @@ package com.student.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import javax.inject.Inject;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.student.config.ApplicationConfig;
 
@@ -15,15 +20,18 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes=ApplicationConfig.class)
 public class StudentServiceTest {
 
-	private ApplicationContext context;
+	// private ApplicationContext context;
+	@Inject
 	private StudentService service;
 
 	@BeforeEach
 	void setUp() {
-		this.context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		this.service = this.context.getBean(StudentService.class);
+		// this.context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		// this.service = this.context.getBean(StudentService.class);
 		assertNotNull(this.service);
 	}
 
