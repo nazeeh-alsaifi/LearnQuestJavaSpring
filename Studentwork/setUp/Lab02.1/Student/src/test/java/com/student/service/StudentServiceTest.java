@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.student.config.ApplicationConfig;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,8 +22,8 @@ public class StudentServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		this.context = new ClassPathXmlApplicationContext("beans.xml");
-		this.service = this.context.getBean("studentService", StudentService.class);
+		this.context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		this.service = this.context.getBean(StudentService.class);
 		assertNotNull(this.service);
 	}
 
