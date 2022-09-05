@@ -12,12 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import com.student.core.Student;
 import com.student.dao.StudentDao;
 
-@Named(value = "studentService")
-@Singleton
+
 public class StudentServiceImpl implements StudentService {
-	@Inject @Named(value = "studentDao")
 	private StudentDao studentDao;
-	@Value("2")
 	private int numberOfStudents;
 
 	@Override

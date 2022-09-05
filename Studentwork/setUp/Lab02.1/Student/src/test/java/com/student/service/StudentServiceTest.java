@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.student.config.ApplicationConfig;
+import com.student.core.Student;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -37,7 +38,9 @@ public class StudentServiceTest {
 
 	@Test
 	void testGetOneStudent() {
-		assertNotNull(this.service.get(1));
+		Student st1 = this.service.get(1);
+		assertNotNull(st1);
+		assertThat(st1.getFirstName(),equalTo("Eric"));
 	}
 
 	@Test

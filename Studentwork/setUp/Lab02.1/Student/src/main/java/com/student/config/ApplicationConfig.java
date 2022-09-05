@@ -14,6 +14,10 @@ import com.student.service.StudentServiceImpl;
 @Configuration
 public class ApplicationConfig {
 
+    @Bean
+    StudentDao getStudentDao(){
+        return new StudentDaoImpl();
+    }
 
     @Bean("studentService")
     StudentService getStudentService(@Value("2")int numberOfStudents){
@@ -21,11 +25,6 @@ public class ApplicationConfig {
         service.setStudentDao(getStudentDao());
         service.setNumberOfStudents(numberOfStudents);
         return service;
-    }
-
-    @Bean
-    StudentDao getStudentDao(){
-        return new StudentDaoImpl();
     }
     
 }
