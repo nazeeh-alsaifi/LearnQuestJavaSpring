@@ -50,4 +50,12 @@ public class StudentServiceTest {
 		});
 		assertThat(this.service.getAllStudents().size(), equalTo(2));
 	}
+
+	@Test
+	void testGetAllInDepartment() {
+		this.service.getAllStudents().forEach(s -> {
+			System.out.println(s);
+		});
+		assertThat(this.service.getStudentsOfDepartment().size(), equalTo(2));
+	}
 }

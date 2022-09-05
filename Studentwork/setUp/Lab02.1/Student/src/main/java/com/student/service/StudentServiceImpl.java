@@ -1,5 +1,6 @@
 package com.student.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,9 @@ import com.student.dao.StudentDao;
 public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao;
 	private int numberOfStudents;
+
+	@Value("#{ studentDao.getAll().?[ dept.equals('${department}') ] }")
+	private Collection<Student> studentsOfDepartment = new ArrayList<Student>();
 
 	@Override
 	public Student get(long id) {
@@ -42,5 +46,10 @@ public class StudentServiceImpl implements StudentService {
 	public void setNumberOfStudents(int numberOfStudents) {
 		this.numberOfStudents = numberOfStudents;
 	}
+
+	public Collection<Student> getStudentsOfDepartment() {
+		return studentsOfDepartment;
+	}
+	
 
 }
