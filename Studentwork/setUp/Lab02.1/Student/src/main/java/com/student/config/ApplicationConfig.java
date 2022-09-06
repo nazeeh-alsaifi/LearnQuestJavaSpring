@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -28,7 +29,8 @@ public class ApplicationConfig {
     }
 
     @Bean("studentService")
-    @ConditionalOnProperty(value = "env", havingValue = "prod", matchIfMissing = true)
+    // @ConditionalOnProperty(value = "env", havingValue = "prod", matchIfMissing = true)
+    @Conditional(StudentConditional_Prod.class)
     StudentService getStudentService() {
         StudentServiceImpl service = new StudentServiceImpl();
         service.setStudentDao(getStudentDao());
@@ -42,7 +44,8 @@ public class ApplicationConfig {
     }
 
     @Bean(name = "studentService")
-    @ConditionalOnProperty(value = "env", havingValue = "test", matchIfMissing = true)
+    // @ConditionalOnProperty(value = "env", havingValue = "test", matchIfMissing = true)
+    @Conditional(StudentConditional_Test.class)
     StudentService serviceTest() {
         StudentServiceImpl service = new StudentServiceImpl();
         service.setStudentDao(getStudentDao());
