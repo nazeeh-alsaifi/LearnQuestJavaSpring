@@ -1,0 +1,77 @@
+<html ng-app="exampleApp">
+<head>
+<title>Template</title>
+
+<script src="static/js/angular.js"></script>
+<link href="static/css/bootstrap.min.css" rel="stylesheet" />
+
+
+</head>
+
+<body ng-controller="defaultCtrl">
+
+	<script>
+		var myApp = angular.module("exampleApp", []);
+		myApp.controller("defaultCtrl", function($scope, $http, $window) {
+			var url = "http://localhost:8081/college/student/";
+			$window.onload = function(e) {
+				$http.get(url).then(
+						function(response) {
+			 				$scope.students = response.data;
+						});			
+			}	 
+			$scope.select = function(id) {
+				var newUrl = url + "/"+ id;
+		
+	 	 		$http.get(newUrl).then(
+						function(response) {
+							$scope.selectedStudent = response.data;	 				 
+	 	 			 });			
+			} 
+ 
+			 
+	 
+			
+		});
+	</script>
+	<div class="panel panel-primary">
+		 <div class="panel-heading" >
+		            <h2>Student Enrollment </h2>
+                    <div ng-model="selectedStudent">
+					  <h2><span>{{selectedStudent.firstName}}</span> <span>{{selectedStudent.surname}}</span>
+					  <span>{{selectedStudent.college.name}}</span> 
+					  <span> {{selectedStudent.college.street}}</span>
+					   <span> {{selectedStudent.college.city}}</span>
+					    <span> {{selectedStudent.college.state}}</span>
+					  </h2> 
+                    </div> 
+          </div>
+           <div class="panel-body">
+            
+			<table class="table table-striped">
+				<thead>
+					<th>Id</th>
+					<th>FirstName</th>
+ 					<th>Surname</th>
+					<th>Department</th>				
+		 			<th>Fees</th>
+		 			<th></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in students">
+						<td>{{item.id}}</td>
+						<td>{{item.firstName}}</td>
+		 				<td>{{item.surname}}</td>
+						<td>{{item.dept}}</td>
+						<td>{{item.fees | currency}}</td>
+				 		 <td>
+							<button class="btn btn-info" ng-click="select(item.id)">Select Student</button>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+            </div>
+		</div>
+</body>
+</html>
