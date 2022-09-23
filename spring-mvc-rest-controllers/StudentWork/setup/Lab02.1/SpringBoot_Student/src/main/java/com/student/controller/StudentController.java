@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.student.StudentProperties;
 import com.student.core.Student;
 import com.student.service.StudentService;
 
@@ -17,15 +18,19 @@ import com.student.service.StudentService;
 @RequestMapping("/student")
 public class StudentController {
 
-	@Value("${message}")
+	@Value("${greeting}")
 	private String message;
 
 	@Inject
 	private StudentService service;
 
+	// @Inject
+	// private StudentProperties properties;
+
 	@GetMapping(path = "msg")
 	public String getMessage() {
 		return message;
+		// return properties.getGreetings();
 	}
 
 	//we can get rid of the produces argument because its the default value
