@@ -2,6 +2,7 @@ package com.student;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+//  this added in customization 2 lab4
 @ConfigurationProperties("student")
 public class StudentProperties {
     private String greetings;

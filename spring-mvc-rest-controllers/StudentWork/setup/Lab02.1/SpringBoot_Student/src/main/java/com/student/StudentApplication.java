@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @SpringBootApplication
 @RequestMapping("/")
 @RestController
-// @EnableConfigurationProperties(StudentProperties.class)
+@EnableConfigurationProperties(StudentProperties.class)
 public class StudentApplication {
 
 	public static void main(String[] args) {

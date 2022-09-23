@@ -18,19 +18,19 @@ import com.student.service.StudentService;
 @RequestMapping("/student")
 public class StudentController {
 
-	@Value("${greeting}")
+	@Value("${student.greetings}")
 	private String message;
 
 	@Inject
 	private StudentService service;
 
-	// @Inject
-	// private StudentProperties properties;
+	@Inject
+	private StudentProperties properties;
 
 	@GetMapping(path = "msg")
 	public String getMessage() {
-		return message;
-		// return properties.getGreetings();
+		// return message;
+		return properties.getGreetings();
 	}
 
 	//we can get rid of the produces argument because its the default value
