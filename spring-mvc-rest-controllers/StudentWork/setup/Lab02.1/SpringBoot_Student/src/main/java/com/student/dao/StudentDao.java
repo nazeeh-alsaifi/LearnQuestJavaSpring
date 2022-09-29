@@ -8,4 +8,5 @@ public interface StudentDao {
 	
 	Student getOne(long id);
 	Collection<Student> getAll();
+	void add(Student student);
 }

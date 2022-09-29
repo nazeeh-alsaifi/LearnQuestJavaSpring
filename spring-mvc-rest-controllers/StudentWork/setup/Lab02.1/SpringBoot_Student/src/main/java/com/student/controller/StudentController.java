@@ -1,5 +1,7 @@
 package com.student.controller;
 
+import java.io.Console;
+import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -7,8 +9,11 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,7 +59,22 @@ public class StudentController {
 	}
 
 	@GetMapping("/search/{department}")
-	public Collection<Student> getStudentsPerDepartment(@PathVariable("department") String department, @RequestParam("name") Optional<String> optionalLastNameLike){
+	public Collection<Student> getStudentsPerDepartment(@PathVariable("department") String department,
+			@RequestParam("name") Optional<String> optionalLastNameLike) {
 		return service.getAllStudentsInDepartment(department, optionalLastNameLike.orElse(""));
+	}
+
+	@PostMapping
+	public ResponseEntity<String> addStudent(@RequestBody Student student) {
+		System.out.println(student);
+		System.out.println(student.getId());
+		service.add(student);
+		if (student.getId() > 0) {
+			URI addStudent = URI.create("/collage/student/" + student.getId());
+			System.out.println(student.getId());
+			System.out.println(addStudent);
+			return ResponseEntity.accepted().location(addStudent).build();
+		}
+		return ResponseEntity.badRequest().build();
 	}
 }

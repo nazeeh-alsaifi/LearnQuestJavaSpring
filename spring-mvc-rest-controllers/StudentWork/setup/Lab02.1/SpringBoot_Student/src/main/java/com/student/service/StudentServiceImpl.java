@@ -29,12 +29,19 @@ public class StudentServiceImpl implements StudentService {
 		this.studentDao = studentDao;
 	}
 
-	public Collection<Student> getAllStudentsInDepartment(String department, String lastNameLike){
+	public Collection<Student> getAllStudentsInDepartment(String department, String lastNameLike) {
 		return studentDao.getAll()
-						.stream()
-						.filter(s ->  s.getDept().equals(department))
-						.filter(s -> s.getSurname().contains(lastNameLike))
-						.collect(Collectors.toList());
+				.stream()
+				.filter(s -> s.getDept().equals(department))
+				.filter(s -> s.getSurname().contains(lastNameLike))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public void add(Student student) {
+		if (student.getFirstName() != null && student.getSurname() != null && student.getDept() != null) {
+			studentDao.add(student);
+		}
 	}
 
 }
