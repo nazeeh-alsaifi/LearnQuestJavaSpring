@@ -52,4 +52,9 @@ public class StudentController {
 	public Student getSingleStudent(@RequestParam("id") Optional<Long> optional) {
 		return service.get(optional.orElse(1l));
 	}
+
+	@GetMapping("/search/{department}")
+	public Collection<Student> getStudentsPerDepartment(@PathVariable("department") String department, @RequestParam("name") Optional<String> optionalLastNameLike){
+		return service.getAllStudentsInDepartment(department, optionalLastNameLike.orElse(""));
+	}
 }
