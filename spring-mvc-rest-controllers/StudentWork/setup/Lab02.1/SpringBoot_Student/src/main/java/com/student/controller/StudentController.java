@@ -54,9 +54,9 @@ public class StudentController {
 		return service.get(id);
 	}
 
-	@GetMapping("/single")
-	public Student getSingleStudent(@RequestParam("id") Optional<Long> optional) {
-		return service.get(optional.orElse(1l));
+	@GetMapping(path = "/single", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<Student> getSingleStudent(@RequestParam("id") Optional<Long> optional) {
+		return ResponseEntity.ok().body(service.get(optional.orElse(1l)));
 	}
 
 	@GetMapping("/search/{department}")

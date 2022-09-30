@@ -86,7 +86,10 @@ public class StudentControllerTest {
 
 	@Test
 	void testGetOneRequestParam() {
-		ResponseEntity<Student> responseEntity = new RestTemplate().getForEntity(URL + "/single?id={id}", Student.class, 1);
+		HttpHeaders newHeaders = new HttpHeaders();
+		newHeaders.add("accept", MediaType.APPLICATION_XML_VALUE);
+		// newHeaders.add("accept", MediaType.APPLICATION_JSON_VALUE);
+		ResponseEntity<String> responseEntity = new RestTemplate().exchange(URL + "/single?id={id}", HttpMethod.GET ,new HttpEntity<>(newHeaders),String.class, 1);
 		assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
 		System.out.println(responseEntity.getBody());
 	}
