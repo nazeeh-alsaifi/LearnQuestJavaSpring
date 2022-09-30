@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 @XmlRootElement
+@Xml
 public class Student {
 
 	private long id;
@@ -18,6 +19,8 @@ public class Student {
 	private String dept;
 
 	private Double fees;
+
+	private College college;
 
 	public Student() {
 		super();
@@ -70,6 +73,14 @@ public class Student {
 
 	public void setFees(Double fees) {
 		this.fees = fees;
+	}
+
+	public College getCollege() {
+		return college;
+	}
+
+	public void setCollege(College college) {
+		this.college = college;
 	}
 
 	@Override

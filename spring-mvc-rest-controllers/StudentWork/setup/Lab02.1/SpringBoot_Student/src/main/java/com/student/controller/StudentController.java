@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.student.StudentProperties;
 import com.student.core.Student;
+import com.student.core.StudentCollection;
 import com.student.service.StudentService;
 
 @RestController
@@ -37,19 +38,26 @@ public class StudentController {
 	@Inject
 	private StudentProperties properties;
 
-	@GetMapping(path = "msg")
+	@GetMapping(path = "msg", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public String getMessage(@RequestHeader("user-agent") String agent) {
 		// return message;
 		return properties.getGreetings() + " " + agent;
 	}
 
 	// we can get rid of the produces argument because its the default value
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Collection<Student> getAll() {
 		return service.getAllStudents();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(produces = { MediaType.APPLICATION_XML_VALUE })
+	public StudentCollection getAllXml() {
+		StudentCollection sc = new StudentCollection();
+		sc.setStudentList(service.getAllStudents());
+		return sc;
+	}
+
+	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public Student getStudent(@PathVariable("id") long id) {
 		return service.get(id);
 	}
@@ -59,10 +67,20 @@ public class StudentController {
 		return ResponseEntity.ok().body(service.get(optional.orElse(1l)));
 	}
 
-	@GetMapping("/search/{department}")
+	@GetMapping(path = "/search/{department}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Collection<Student> getStudentsPerDepartment(@PathVariable("department") String department,
 			@RequestParam("name") Optional<String> optionalLastNameLike) {
 		return service.getAllStudentsInDepartment(department, optionalLastNameLike.orElse(""));
+	}
+
+	@GetMapping(path = "/search/{department}", produces = MediaType.APPLICATION_XML_VALUE)
+	public StudentCollection getStudentsPerDepartmentXml(@PathVariable("department") String department,
+			@RequestParam("name") Optional<String> optionalLastNameLike) {
+
+		Collection<Student> cs = service.getAllStudentsInDepartment(department, optionalLastNameLike.orElse(""));
+		StudentCollection sc = new StudentCollection();
+		sc.setStudentList(cs);
+		return sc;
 	}
 
 	@PostMapping

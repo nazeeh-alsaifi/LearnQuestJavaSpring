@@ -79,17 +79,34 @@ public class StudentControllerTest {
 
 	@Test
 	void testGetOnePathParam() {
-		ResponseEntity<Student> responseEntity = new RestTemplate().getForEntity(URL+ "/{id}", Student.class, 1);
+		ResponseEntity<Student> responseEntity = new RestTemplate().getForEntity(URL + "/{id}", Student.class, 1);
 		assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
 		System.out.println(responseEntity.getBody());
 	}
 
 	@Test
 	void testGetOneRequestParam() {
-		HttpHeaders newHeaders = new HttpHeaders();
-		newHeaders.add("accept", MediaType.APPLICATION_XML_VALUE);
-		// newHeaders.add("accept", MediaType.APPLICATION_JSON_VALUE);
-		ResponseEntity<String> responseEntity = new RestTemplate().exchange(URL + "/single?id={id}", HttpMethod.GET ,new HttpEntity<>(newHeaders),String.class, 1);
+		HttpHeaders headers = new HttpHeaders();
+		// testing xml
+		headers.add("accept", MediaType.APPLICATION_XML_VALUE);
+		ResponseEntity<String> responseEntity = new RestTemplate().exchange(URL + "/single?id={id}", HttpMethod.GET,
+				new HttpEntity<>(headers), String.class, 1);
+		assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+		System.out.println(responseEntity.getBody());
+
+		// testing json
+		headers = new HttpHeaders();
+		headers.add("accept", MediaType.APPLICATION_JSON_VALUE);
+		responseEntity = new RestTemplate().exchange(URL + "/single?id={id}", HttpMethod.GET,
+				new HttpEntity<>(headers), String.class, 1);
+		assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+		System.out.println(responseEntity.getBody());
+
+		// test both
+		headers = new HttpHeaders();
+		headers.add("accept", MediaType.APPLICATION_XML_VALUE + ", " + MediaType.APPLICATION_JSON_VALUE);
+		responseEntity = new RestTemplate().exchange(URL + "/single?id={id}", HttpMethod.GET,
+				new HttpEntity<>(headers), String.class, 1);
 		assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
 		System.out.println(responseEntity.getBody());
 	}
