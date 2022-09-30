@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -65,14 +66,11 @@ public class StudentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<String> addStudent(@RequestBody Student student) {
+	public ResponseEntity<Student> addStudent(@RequestBody Student student) {
 		System.out.println(student);
-		System.out.println(student.getId());
 		service.add(student);
 		if (student.getId() > 0) {
 			URI addStudent = URI.create("/collage/student/" + student.getId());
-			System.out.println(student.getId());
-			System.out.println(addStudent);
 			return ResponseEntity.accepted().location(addStudent).build();
 		}
 		return ResponseEntity.badRequest().build();
