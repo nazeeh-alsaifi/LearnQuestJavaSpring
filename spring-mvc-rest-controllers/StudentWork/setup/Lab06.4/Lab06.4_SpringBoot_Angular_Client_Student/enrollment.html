@@ -13,7 +13,7 @@
 	<script>
 		var myApp = angular.module("exampleApp", []);
 		myApp.controller("defaultCtrl", function($scope, $http, $window) {
-			var url = "http://localhost:8081/college/student/";
+			var url = "http://localhost:8081/collage/student/";
 			$window.onload = function(e) {
 				$http.get(url).then(
 						function(response) {
