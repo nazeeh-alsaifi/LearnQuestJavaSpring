@@ -1,0 +1,20 @@
+    @Test
+	void testPostNegative() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", MediaType.APPLICATION_JSON_VALUE);
+		Student student = new Student();
+		student.setDept("History");
+		student.setFirstName("Barney");
+		student.setSurname("Rubble");
+		student.setFees(201.00);
+		Course course = new Course();
+		course.setLocation("University of Miami");
+		course.setStudent(student);
+		course.setTitle("History of Carthage");
+		student.getCourses().add(course);
+		Assertions.assertThrows(HttpClientErrorException.class, () -> {
+			ResponseEntity<String> response = new RestTemplate().postForEntity("http://localhost:8080/student",new HttpEntity(student, headers), String.class);
+			assertThat(response.getStatusCodeValue(), equalTo(400));
+		});
+
+	}

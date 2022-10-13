@@ -1,0 +1,3 @@
+When Hibernate loads objects from the DB, it returns proxied objects which look like your Advertisment or SessionT but have more "stuff" in them (to handle their relationship to the session, the internal state of lazy loaded collections etc.).
+
+This throws off the Jackson serializer since it relies on introspection to find our the properties of the objects.
