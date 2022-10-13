@@ -14,23 +14,23 @@ import com.student.core.Student;
 
 @SpringBootTest
 public class StudentServiceTest {
-	
-	@Inject 
+
+	@Inject
 	private StudentService service;
-	
+
 	@Test
 	void testServiceSingle() {
-		Student student =  service.get(1L);
-		 assertThat(student.getFirstName(), equalTo("Eric"));
-	     assertThat(student.getSurname(), equalTo("Colbert"));
+		Student student = service.get(1L);
+		assertThat(student.getFirstName(), equalTo("Eric"));
+		assertThat(student.getSurname(), equalTo("Colbert"));
 	}
-	
+
 	@Test
 	void testService() {
-		Collection<Student> students =  service.getAllStudents();
-		students.forEach(p-> {
-				System.out.printf("%-10s %-10s%n",p.getFirstName(), p.getSurname());
-		  });
+		Collection<Student> students = service.getAllStudents();
+		students.forEach(p -> {
+			System.out.printf("%-10s %-10s%n", p.getFirstName(), p.getSurname());
+		});
 	}
 
 }

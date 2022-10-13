@@ -8,23 +8,21 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.student.core.Student;
- 
+
 @Named
 public class StudentServiceImpl implements StudentService {
- 
-	//TODO
-	 
+
+	@PersistenceContext
+	private EntityManager em;
+
 	@Override
 	public Student get(long id) {
-		//TODO
-		return null;
+		return em.find(Student.class, id);
 	}
 
 	@Override
 	public Collection<Student> getAllStudents() {
- 		//TODO
-		return null;
- 	}
+		return em.createQuery("SELECT student FROM Student student", Student.class).getResultList();
+	}
 
- 
 }
