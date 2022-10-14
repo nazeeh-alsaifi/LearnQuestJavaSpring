@@ -40,4 +40,9 @@ public class StudentController {
 		return studentService.getAllStudents().stream().map(p -> p.getDept()).distinct().collect(Collectors.toList());
 	}
 
+	@GetMapping(path = "/search/department/{department}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Collection<Student> getStudentsByDepartment(@PathVariable("department") String department) {
+		return studentService.getStudentsByDepartment(department);
+	}
+
 }
