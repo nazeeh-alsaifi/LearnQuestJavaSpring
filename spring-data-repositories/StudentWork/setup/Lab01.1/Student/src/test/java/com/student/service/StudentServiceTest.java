@@ -2,6 +2,8 @@ package com.student.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
@@ -33,4 +35,14 @@ public class StudentServiceTest {
 		});
 	}
 
+	@Test
+	void testGetStudentsByDepratment(){
+		Collection<Student> students = service.getStudentsByDepartment("Chemistry");
+		Boolean allSameDepartment = students.stream().allMatch(s -> s.getDept().equals("Chemistry") );
+
+		students.forEach(p -> {
+			System.out.printf("%-10s%n", p.getDept());
+		});
+		assertThat("all students same departments",allSameDepartment);
+	}
 }
