@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.student.core.Student;
-@RepositoryRestResource(collectionResourceRel = "student", path = "enrollments")
+@RepositoryRestResource(collectionResourceRel = "student", path = "enrollments", excerptProjection = Person.class)
 public interface StudentRepository extends JpaRepository<Student,Long> {
     Collection<Student> findByDept(String department);
 
