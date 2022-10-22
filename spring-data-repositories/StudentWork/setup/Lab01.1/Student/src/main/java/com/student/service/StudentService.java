@@ -9,5 +9,6 @@ public interface StudentService {
 	Student get(long id);
 	Collection<Student> getAllStudents();
 	Collection<Student> getStudentsByDepartment(String department);
+	Student add(Student student);
 
 }

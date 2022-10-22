@@ -8,13 +8,17 @@ import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.student.core.Student;
+import com.student.repository.StudentRepository;
 import com.student.service.StudentService;
 
 @RequestMapping("/student")
@@ -24,6 +28,9 @@ public class StudentController {
 
 	@Inject
 	private StudentService studentService;
+
+	@Inject
+	private StudentRepository studentRepository;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Student> getAll() {
@@ -43,6 +50,12 @@ public class StudentController {
 	@GetMapping(path = "/search/department/{department}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Student> getStudentsByDepartment(@PathVariable("department") String department) {
 		return studentService.getStudentsByDepartment(department);
+	}
+
+	@PostMapping
+	public ResponseEntity<String> add(@RequestBody Student student){
+		Student newStudent = studentService.add(student);
+		return ResponseEntity.accepted().header("location",	"/student/" + newStudent.getId() ).build();
 	}
 
 }

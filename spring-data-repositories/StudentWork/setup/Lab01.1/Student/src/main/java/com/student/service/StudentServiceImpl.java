@@ -34,5 +34,9 @@ public class StudentServiceImpl implements StudentService {
 	public Collection<Student> getStudentsByDepartment(String department) {
 		return repo.findByDept(department);
 	}
+	
+	public Student add(Student student){
+		return repo.save(student);
+	}
 
 }
