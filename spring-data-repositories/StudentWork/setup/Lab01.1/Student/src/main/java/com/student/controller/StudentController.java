@@ -9,7 +9,9 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.student.core.Student;
+import com.student.exception.MyException;
 import com.student.repository.StudentRepository;
 import com.student.service.StudentService;
 
@@ -53,9 +56,18 @@ public class StudentController {
 	}
 
 	@PostMapping
-	public ResponseEntity<String> add(@RequestBody Student student){
-		Student newStudent = studentService.add(student);
+	@Transactional(rollbackFor = MyException.class)
+	public ResponseEntity<String> add(@RequestBody Student student) throws MyException{
+		Student newStudent = studentRepository.save(student);;
+		
+		if( student.getFees() > 200.0){
+			throw new MyException("blow up!");
+		}
 		return ResponseEntity.accepted().header("location",	"/student/" + newStudent.getId() ).build();
 	}
 
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Object> handle(Exception exception) {
+		return ResponseEntity.badRequest().build();
+	}
 }
