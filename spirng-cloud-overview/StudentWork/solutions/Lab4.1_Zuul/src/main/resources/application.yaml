@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: edge
+server:
+  port: 8080
+
+eureka:
+  client:
+     serviceUrl:
+      defaultZone: http://localhost:1111/eureka/ 
+  instance:
+        preferIpAddress: true
+        metadataMap:
+            instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        leaseRenewalIntervalInSeconds: 1000
+        leaseExpirationDurationInSeconds: 2000
+
+zuul:
+  routes:
+    echo:
+      path: /mtn/**
+      serviceId: service-one
+ 
+service-one:
+  ribbon:
+    DeploymentContextBasedVipAddresses: service01
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList   
+
+

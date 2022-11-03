@@ -1,0 +1,5 @@
+service-two:
+  ribbon:
+    DeploymentContextBasedVipAddresses: service02
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList  
+ 

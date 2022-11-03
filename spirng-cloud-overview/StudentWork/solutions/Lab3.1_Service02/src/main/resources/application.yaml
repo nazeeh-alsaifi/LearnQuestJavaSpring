@@ -1,0 +1,19 @@
+# Spring Properties
+spring:
+  application:
+     name: service02
+# Discovery Server Access
+eureka:
+  client:
+     serviceUrl:
+      defaultZone: http://localhost:1111/eureka/ 
+  instance:
+        preferIpAddress: true
+        metadataMap:
+            instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        leaseRenewalIntervalInSeconds: 100
+        leaseExpirationDurationInSeconds: 200
+ # HTTP Server
+server:
+  port: 8085  
+    

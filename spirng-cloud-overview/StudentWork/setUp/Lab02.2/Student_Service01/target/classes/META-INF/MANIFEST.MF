@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Demo
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: developer
+Implementation-Vendor-Id: mountain
+Build-Jdk: 1.8.0_282
+Implementation-URL: http://projects.spring.io/spring-boot/service/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

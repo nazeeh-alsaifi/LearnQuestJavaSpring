@@ -1,0 +1,19 @@
+# Spring Properties
+spring:
+  application:
+     name: <TODO>
+# Discovery Server Access
+eureka:
+  client:
+     serviceUrl:
+      defaultZone: <TODO>
+  instance:
+        preferIpAddress: true
+        metadataMap:
+            instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        leaseRenewalIntervalInSeconds: 1000
+        leaseExpirationDurationInSeconds: 2000
+ # HTTP Server
+server:
+  port: 8085  
+    
