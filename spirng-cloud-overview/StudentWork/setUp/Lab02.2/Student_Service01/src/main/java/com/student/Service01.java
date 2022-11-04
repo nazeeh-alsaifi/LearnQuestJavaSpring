@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
  
 @SpringBootApplication
-//<TODO>
+@EnableDiscoveryClient
 @RestController
 public class Service01 {
 	public static void main(String[] args) {

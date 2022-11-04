@@ -1,12 +1,12 @@
 # Spring Properties
 spring:
   application:
-     name: <TODO>
+     name: service01
 # Discovery Server Access
 eureka:
   client:
      serviceUrl:
-      defaultZone: <TODO>
+      defaultZone: http://localhost:1111/eureka
   instance:
         preferIpAddress: true
         metadataMap:
