@@ -1,19 +1,30 @@
 # Spring Properties
 spring:
   application:
-     name: service01
+      name: service01
+
+info:
+  app:
+    name: service01
+    description: mountain service
+    version: 1.0.0
+
 # Discovery Server Access
 eureka:
   client:
-     serviceUrl:
-      defaultZone: http://localhost:1111/eureka
+      serviceUrl:
+        defaultZone: http://localhost:1111/eureka
   instance:
         preferIpAddress: true
         metadataMap:
             instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
         leaseRenewalIntervalInSeconds: 100
         leaseExpirationDurationInSeconds: 200
- # HTTP Server
+# HTTP Server
 server:
   port: 8082  
-    
+
+service-two:
+  ribbon:
+    DeploymentContextBasedVipAddresses: service02
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList

@@ -1,3 +1,6 @@
+info:
+  component: DiscoveryService
+  
 # Configure this Discovery Server
 eureka:
   instance:
@@ -5,8 +8,8 @@ eureka:
   client:  # Not a client, don't register with yourself
     registerWithEureka: false
     fetchRegistry: false
-  #server:
-  #  enableSelfPreservation: false 
-  #  eviction-interval-timer-in-ms: 1000
+  # server:
+  #   enableSelfPreservation: false 
+  #   eviction-interval-timer-in-ms: 1000
 server:
   port: 1111   # HTTP (Tomcat) port 

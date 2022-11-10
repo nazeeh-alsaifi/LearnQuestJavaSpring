@@ -1,19 +1,26 @@
 # Spring Properties
 spring:
   application:
-     name: <TODO>
+    name: service02
+
+info:
+  app:
+    name: service03 second instance of service02
+    description: mountain ascent
+    version: 1.0.0
+
 # Discovery Server Access
 eureka:
   client:
-     serviceUrl:
-      defaultZone: <TODO> 
+      serviceUrl:
+        defaultZone: http://localhost:1111/eureka
   instance:
         preferIpAddress: true
         metadataMap:
             instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-        leaseRenewalIntervalInSeconds: 1000
-        leaseExpirationDurationInSeconds: 2000
- # HTTP Server
+        leaseRenewalIntervalInSeconds: 100
+        leaseExpirationDurationInSeconds: 200
+# HTTP Server
 server:
   port: 8086  
     
