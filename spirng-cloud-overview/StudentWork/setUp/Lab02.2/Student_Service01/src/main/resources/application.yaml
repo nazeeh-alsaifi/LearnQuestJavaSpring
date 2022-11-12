@@ -3,6 +3,12 @@ spring:
   application:
       name: service01
 
+# logging:
+#   level:
+#     com.netflix.loadbalancer.LoadBalancerContext: DEBUG
+#     com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList: DEBUG
+#     org.springframework.web: DEBUG
+
 info:
   app:
     name: service01
@@ -28,3 +34,5 @@ service-two:
   ribbon:
     DeploymentContextBasedVipAddresses: service02
     NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    # NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    # listOfServers: http://localhost:8086, http://localhost:8085

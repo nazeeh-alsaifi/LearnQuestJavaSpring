@@ -1,7 +1,7 @@
 # Spring Properties
 spring:
   application:
-    name: service-two
+    name: service02
 
 info:
   app:
