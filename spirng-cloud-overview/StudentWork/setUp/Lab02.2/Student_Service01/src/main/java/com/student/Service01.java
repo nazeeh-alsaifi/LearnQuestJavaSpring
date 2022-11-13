@@ -1,10 +1,10 @@
 package com.student;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,9 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
@@ -24,18 +27,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.DiscoveryClient;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
-import com.netflix.loadbalancer.ConfigurationBasedServerList;
-import com.netflix.loadbalancer.Server;
-import com.netflix.loadbalancer.ServerList;
 
+// @EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
-@RibbonClient(name = "service-two")
+@RibbonClient(name = "service02")
 @RestController
 public class Service01 {
 	@Autowired
@@ -43,6 +43,9 @@ public class Service01 {
 
 	@Autowired
 	private EurekaClient discoveryClient;
+
+	// @Named
+	// private MountainAscentClient client2;
 
 	private static Logger logger = LoggerFactory.getLogger(Service01.class);
 
@@ -73,9 +76,11 @@ public class Service01 {
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mountain get(@PathVariable("id") Long id) {
 		Mountain c = dao.get(id);
-		String url = "http://service-two/{id}";
+		String url = "http://service02/{id}";
 		String str = this.restTemplate().getForObject(url, String.class, id);
+		// String str = client2.get(id);
 		c.setFirstAscent(str);
+
 		return c;
 	}
 
@@ -91,4 +96,12 @@ public class Service01 {
 		return new RestTemplate();
 	}
 
+	// @FeignClient(name = "service02")
+	// public interface MountainAscentClient {
+	// 	// @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	// 	// public Mountain get(@PathVariable("id") Long id);
+
+	// 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	// 	public String get(@PathVariable("id") Long id);
+	// }
 }
