@@ -8,14 +8,13 @@ import org.springframework.context.annotation.Bean;
 
 import com.student.filters.SimpleFilter;
 
-//<TODO>
+@EnableZuulProxy
 @SpringBootApplication
-//<TODO>
+@EnableDiscoveryClient
 public class GatewayService {
 
   public static void main(String[] args) {
     SpringApplication.run(GatewayService.class, args);
   }
 
-   
 }

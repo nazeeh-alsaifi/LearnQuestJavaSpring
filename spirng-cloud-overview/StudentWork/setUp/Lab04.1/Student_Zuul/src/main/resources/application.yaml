@@ -18,12 +18,12 @@ eureka:
 zuul:
   routes:
     echo:
-      path: <TODO>
-      serviceId: <TODO>
- 
-<TODO>:
+      path: /mtn/*
+      serviceId: service01
+
+service-one:
   ribbon:
-    DeploymentContextBasedVipAddresses: <TODO>
+    DeploymentContextBasedVipAddresses: service01
     NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList   
 
 
